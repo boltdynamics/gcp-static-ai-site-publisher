@@ -24,4 +24,16 @@ steps:
         npm install -g typescript
         tsc --version
 
+        # Authenticate with gcloud and set scopes
+        echo $SERVICE_ACCOUNT_KEY > /tmp/key.json
+        gcloud auth activate-service-account --key-file=/tmp/key.json
+        gcloud auth application-default login --scopes=https://www.googleapis.com/auth/siteverification.verify_only,https://www.googleapis.com/auth/userinfo.email,https://www.googleapis.com/auth/cloud-platform,https://www.googleapis.com/auth/sqlservice.login,openid
+
+        # Run the Taskfile command
         task terraform-apply
+    secretEnv: ['SERVICE_ACCOUNT_KEY']
+
+secrets:
+  # - kmsKeyName: projects/pras-sandbox-405410/locations/global/keyRings/YOUR_KEYRING/cryptoKeys/YOUR_KEY
+  - secretEnv:
+      SERVICE_ACCOUNT_KEY: projects/630923649102/secrets/terraform-cloudbuild-sa-service-account/versions/latest
