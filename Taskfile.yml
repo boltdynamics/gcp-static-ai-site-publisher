@@ -55,8 +55,8 @@ tasks:
   terraform-init:
     dir: terraform
     desc: Initialize terraform backend, providers, plugins and modules
-    # deps:
-    #   - terraform-providers-lock
+    deps:
+      - terraform-providers-lock
     cmds:
       - |
         terraform init \
@@ -84,7 +84,7 @@ tasks:
     deps:
       - terraform-plan
     cmds:
-      # - defer: { task: clean }
+      - defer: { task: clean }
       - |
         terraform apply -auto-approve \
         -var "project_id=${GOOGLE_CLOUD_PROJECT_ID}" \
