@@ -21,4 +21,7 @@ steps:
         npm install -g pnpm
         pnpm --version
 
+        npm install -g typescript
+        tsc --version
+
         task terraform-apply
