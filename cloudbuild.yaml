@@ -32,8 +32,7 @@ steps:
         # Run the Taskfile command
         task terraform-apply
     secretEnv: ['SERVICE_ACCOUNT_KEY']
-
-secrets:
-  # - kmsKeyName: projects/pras-sandbox-405410/locations/global/keyRings/YOUR_KEYRING/cryptoKeys/YOUR_KEY
-  - secretEnv:
-      SERVICE_ACCOUNT_KEY: projects/630923649102/secrets/terraform-cloudbuild-sa-service-account/versions/latest
+availableSecrets:
+  secretManager:
+  - versionName: projects/630923649102/secrets/terraform-cloudbuild-sa-service-account/versions/latest
+    env: 'SERVICE_ACCOUNT_KEY'
