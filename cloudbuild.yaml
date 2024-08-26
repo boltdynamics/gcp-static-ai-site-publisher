@@ -13,7 +13,7 @@ steps:
     args:
       - -c
       - |
-        apk add --no-cache curl bash
+        apk add --no-cache curl bash nodejs npm
         curl -sL https://taskfile.dev/install.sh | sh
         mv ./bin/task /usr/local/bin/task
         task --version
