@@ -1,3 +1,19 @@
 steps:
-  - name: gcr.io/cloud-builders/gsutil
-    args: ["cp", "404.html", "error.png", "index.html", "gs://xplorers.learnwithpras.xyz"]
+  # - name: gcr.io/cloud-builders/gsutil
+  #   args: ["cp", "404.html", "error.png", "index.html", "gs://xplorers.learnwithpras.xyz"]
+  - id: tf plan
+    name: hashicorp/terraform:1.0.0
+    entrypoint: sh
+    args:
+    - -c
+    - |
+      terraform init \
+        -backend-config="bucket=xplorers-backend" \
+        -backend-config="prefix=terraform/state"
+      terraform -chdir apply -auto-approve \
+        -var "project_id=pras-sandbox-405410" \
+        -var "region=us-central1" \
+        -var "zone=us-central1-c" \
+        -var "project_number=630923649102" \
+        -var "backend_bucket_name=xplorers-backend" \
+        -var "static_ai_website_bucket_name=xplorers.learnwithpras.xyz"

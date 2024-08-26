@@ -1,0 +1,16 @@
+{
+  "name": "gcp-static-ai-site-publisher",
+  "version": "1.0.0",
+  "description": "",
+  "main": "askGemini.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "pnpm lint"
+  },
+  "devDependencies": {
+    "@types/node": "^22.4.1"
+  },
+  "dependencies": {
+    "@google-cloud/functions-framework": "^3.4.2"
+  }
+}

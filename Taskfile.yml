@@ -1,0 +1,108 @@
+version: 3
+
+dotenv:
+  - ./configuration/defaults.conf
+
+vars:
+  FUNCTION_ARTIFACT: terraform/ask-ai-function-bundle.zip
+
+tasks:
+  install:
+    desc: Install dependencies (node modules)
+    cmds:
+      - pnpm install
+
+  update-dependencies:
+    desc: Update dependencies (node modules)
+    cmds:
+      - pnpm update && pnpm upgrade
+
+  clean:
+    desc: Clean artifacts and dependencies
+    cmds:
+      - rm -rf dist/
+      - rm -rf {{.FUNCTION_ARTIFACT}}
+      - rm -rf out/
+
+  compile:
+    desc: Compile typescript files
+    cmds:
+      - tsc
+
+  package:
+    desc: Package and zip the application code for deployment
+    cmds:
+      - task: clean
+      - task: install
+      - task: compile
+      - mkdir -p dist
+      - cp -R node_modules out/* package*.json dist
+
+  terraform-fmt:
+    dir: terraform
+    desc: Format terraform files
+    cmds:
+      - |
+        terraform fmt
+
+  terraform-providers-lock:
+    dir: terraform
+    desc: Lock terraform providers for all platforms
+    cmds:
+      - |
+        terraform providers lock -platform=windows_amd64 -platform=darwin_amd64 -platform=linux_amd64
+
+  terraform-init:
+    dir: terraform
+    desc: Initialize terraform backend, providers, plugins and modules
+    # deps:
+    #   - terraform-providers-lock
+    cmds:
+      - |
+        terraform init \
+        -backend-config="bucket=${BACKEND_BUCKET_NAME}" \
+        -backend-config="prefix=${BACKEND_BUCKET_TERRAFORM_PREFIX}"
+
+  terraform-plan:
+    dir: terraform
+    desc: Creates an execution plan, which lets you preview the changes that Terraform plans to make to your infrastructure.
+    cmds:
+      - task: terraform-init
+      - task: package
+      - |
+        terraform plan \
+        -var "project_id=${GOOGLE_CLOUD_PROJECT_ID}" \
+        -var "region=${GOOGLE_CLOUD_PROJECT_REGION}" \
+        -var "zone=${GOOGLE_CLOUD_PROJECT_ZONE}" \
+        -var "project_number=${GOOGLE_PROJECT_NUMBER}" \
+        -var "backend_bucket_name=${BACKEND_BUCKET_NAME}" \
+        -var "static_ai_website_bucket_name=${STATIC_AI_WEBSITE_BUCKET_NAME}"
+
+  terraform-apply:
+    dir: terraform
+    desc: Apply the planned changes to the target infrastructure
+    deps:
+      - terraform-plan
+    cmds:
+      # - defer: { task: clean }
+      - |
+        terraform apply -auto-approve \
+        -var "project_id=${GOOGLE_CLOUD_PROJECT_ID}" \
+        -var "region=${GOOGLE_CLOUD_PROJECT_REGION}" \
+        -var "zone=${GOOGLE_CLOUD_PROJECT_ZONE}" \
+        -var "project_number=${GOOGLE_PROJECT_NUMBER}" \
+        -var "backend_bucket_name=${BACKEND_BUCKET_NAME}" \
+        -var "static_ai_website_bucket_name=${STATIC_AI_WEBSITE_BUCKET_NAME}"
+
+  terraform-destroy:
+    dir: terraform
+    desc: Delete all resources created by terraform
+    cmds:
+      - |
+        terraform destroy -auto-approve \
+        -var "project_id=${GOOGLE_CLOUD_PROJECT_ID}" \
+        -var "region=${GOOGLE_CLOUD_PROJECT_REGION}" \
+        -var "zone=${GOOGLE_CLOUD_PROJECT_ZONE}" \
+        -var "project_number=${GOOGLE_PROJECT_NUMBER}" \
+        -var "backend_bucket_name=${BACKEND_BUCKET_NAME}" \
+        -var "static_ai_website_bucket_name=${STATIC_AI_WEBSITE_BUCKET_NAME}"

@@ -35,7 +35,7 @@
     <div class="container">
         <h1>Oops! Something went wrong.</h1>
         <p>We apologize for the inconvenience.</p>
-        <img src="error.png" alt="Error" class="animation">
+        <img src="http://storage.googleapis.com/${website_domain}/error.png" alt="Error" class="animation">
     </div>
 </body>
 </html>
