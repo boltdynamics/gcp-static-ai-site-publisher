@@ -7,7 +7,8 @@ steps:
   #     - login
   #     - --scopes
   #     - https://www.googleapis.com/auth/siteverification.verify_only,https://www.googleapis.com/auth/userinfo.email,https://www.googleapis.com/auth/cloud-platform,https://www.googleapis.com/auth/sqlservice.login,openid
-  - name: alpine
+  - id: tf plan
+    name: hashicorp/terraform:1.9.5
     entrypoint: sh
     args:
       - -c
@@ -16,12 +17,6 @@ steps:
         curl -sL https://taskfile.dev/install.sh | sh
         mv ./bin/task /usr/local/bin/task
         task --version
-  - id: tf plan
-    name: hashicorp/terraform:1.9.5
-    entrypoint: sh
-    args:
-      - -c
-      - |
         task terraform-apply
   # - id: tf plan
   #   name: hashicorp/terraform:1.9.5
