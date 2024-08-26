@@ -36,4 +36,4 @@ steps:
 #   secretManager:
 #   - versionName: projects/630923649102/secrets/terraform-cloudbuild-sa-service-account/versions/latest
 #     env: 'TERRAFORM_SERVICE_ACCOUNT_KEY'
-serviceAccount: projects/630923649102/serviceAccounts/terraform-cloudbuild-sa@pras-sandbox-405410.iam.gserviceaccount.com
+# serviceAccount: projects/630923649102/serviceAccounts/terraform-cloudbuild-sa@pras-sandbox-405410.iam.gserviceaccount.com

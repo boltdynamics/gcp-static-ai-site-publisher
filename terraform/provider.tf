@@ -18,5 +18,12 @@ provider "google" {
   project = var.project_id
   region  = var.region
   zone    = var.zone
-  scopes  = ["https://www.googleapis.com/auth/siteverification"]
+  scopes  = [
+    "https://www.googleapis.com/auth/siteverification",
+    "https://www.googleapis.com/auth/siteverification.verify_only",
+    "https://www.googleapis.com/auth/userinfo.email",
+    "https://www.googleapis.com/auth/cloud-platform",
+    "https://www.googleapis.com/auth/sqlservice.login",
+    "openid"
+  ]
 }
