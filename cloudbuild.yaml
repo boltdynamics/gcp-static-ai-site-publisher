@@ -1,12 +1,12 @@
 steps:
-  - name: gcr.io/google.com/cloudsdktool/cloud-sdk
-    entrypoint: gcloud
-    args:
-      - auth
-      - application-default
-      - login
-      - --scopes
-      - https://www.googleapis.com/auth/siteverification.verify_only,https://www.googleapis.com/auth/userinfo.email,https://www.googleapis.com/auth/cloud-platform,https://www.googleapis.com/auth/sqlservice.login,openid
+  # - name: gcr.io/google.com/cloudsdktool/cloud-sdk
+  #   entrypoint: gcloud
+  #   args:
+  #     - auth
+  #     - application-default
+  #     - login
+  #     - --scopes
+  #     - https://www.googleapis.com/auth/siteverification.verify_only,https://www.googleapis.com/auth/userinfo.email,https://www.googleapis.com/auth/cloud-platform,https://www.googleapis.com/auth/sqlservice.login,openid
   - name: alpine
     entrypoint: sh
     args:
