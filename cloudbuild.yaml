@@ -7,10 +7,10 @@ steps:
     args:
     - -c
     - |
-      terraform init \
+      terraform -chdir=terraform init \
         -backend-config="bucket=xplorers-backend" \
         -backend-config="prefix=terraform/state"
-      terraform -chdir apply -auto-approve \
+      terraform -chdir=terraform apply -auto-approve \
         -var "project_id=pras-sandbox-405410" \
         -var "region=us-central1" \
         -var "zone=us-central1-c" \
