@@ -2,7 +2,7 @@ steps:
   # - name: gcr.io/cloud-builders/gsutil
   #   args: ["cp", "404.html", "error.png", "index.html", "gs://xplorers.learnwithpras.xyz"]
   - id: tf plan
-    name: hashicorp/terraform:1.0.0
+    name: hashicorp/terraform:1.2.4
     entrypoint: sh
     args:
     - -c
