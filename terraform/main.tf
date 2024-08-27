@@ -150,6 +150,7 @@ resource "google_cloudbuild_trigger" "build-static-ai-website" {
   location    = var.region
   name        = "build-static-ai-website"
   description = "Build the static ai website when there are changes to the repository"
+  service_account = "terraform-cloudbuild-sa@pras-sandbox-405410.iam.gserviceaccount.com"
   repository_event_config {
     repository = google_cloudbuildv2_repository.static-ai-repository.id
     push {
