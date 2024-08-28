@@ -224,6 +224,8 @@ resource "google_cloudfunctions2_function" "ask-ai-function" {
   labels = {
     env = "production"
   }
+
+  depends_on = [ google_project_iam_binding.secret_manager_accessor_binding ]
 }
 
 resource "google_cloud_run_service_iam_member" "cloud_run_invoker" {
