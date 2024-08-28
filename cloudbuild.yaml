@@ -31,10 +31,10 @@ steps:
 
         # Run the Taskfile command
         task terraform-apply
-serviceAccount: "terraform-cloudbuild-sa@pras-sandbox-405410.iam.gserviceaccount.com"
-logsBucket: "logs-static-ai"
-options:
-  logging: GCS_ONLY
+# serviceAccount: "terraform-cloudbuild-sa@pras-sandbox-405410.iam.gserviceaccount.com"
+# logsBucket: "logs-static-ai"
+# options:
+#   logging: GCS_ONLY
 #     secretEnv: ['TERRAFORM_SERVICE_ACCOUNT_KEY']
 # availableSecrets:
 #   secretManager:
