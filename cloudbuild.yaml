@@ -31,6 +31,9 @@ steps:
 
         # Run the Taskfile command
         task terraform-apply
+options:
+  logging: CLOUD_LOGGING_ONLY
+
 #     secretEnv: ['TERRAFORM_SERVICE_ACCOUNT_KEY']
 # availableSecrets:
 #   secretManager:

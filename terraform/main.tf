@@ -161,7 +161,7 @@ resource "google_cloudbuild_trigger" "build-static-ai-website" {
   substitutions = {
     _BUCKET_NAME = var.static_ai_website_bucket_name
   }
-  include_build_logs = "INCLUDE_BUILD_LOGS_WITH_STATUS"
+  # include_build_logs = "INCLUDE_BUILD_LOGS_WITH_STATUS"
 }
 
 data "archive_file" "ask_ai_function_archive" {
