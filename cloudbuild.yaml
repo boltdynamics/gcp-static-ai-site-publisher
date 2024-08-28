@@ -33,7 +33,7 @@ steps:
         task terraform-apply
 serviceAccount: "terraform-cloudbuild-sa@pras-sandbox-405410.iam.gserviceaccount.com"
 options:
-  logging: LEGACY
+  logging: CLOUD_LOGGING_ONLY
 #     secretEnv: ['TERRAFORM_SERVICE_ACCOUNT_KEY']
 # availableSecrets:
 #   secretManager:
