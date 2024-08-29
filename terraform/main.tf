@@ -15,14 +15,14 @@ locals {
   }
 }
 
-resource "google_project_service" "siteverification" {
-  service = "siteverification.googleapis.com"
-}
+# resource "google_project_service" "siteverification" {
+#   service = "siteverification.googleapis.com"
+# }
 
-data "googlesiteverification_dns_token" "domain" {
-  domain     = var.domain_name
-  depends_on = [google_project_service.siteverification]
-}
+# data "googlesiteverification_dns_token" "domain" {
+#   domain     = var.domain_name
+#   depends_on = [google_project_service.siteverification]
+# }
 
 data "google_secret_manager_secret_version" "cloudflare-api-key" {
   project  = var.project_id
@@ -40,16 +40,20 @@ data "cloudflare_zones" "zones" {
   }
 }
 
-resource "cloudflare_record" "siteverification" {
-  zone_id = data.cloudflare_zones.zones.zones.0.id
-  name    = var.domain_name
-  type    = "TXT"
-  content = data.googlesiteverification_dns_token.domain.record_value
-  ttl     = 60
-  proxied = false
-  comment = "Google Domain verification record"
-  tags    = []
-}
+# resource "cloudflare_record" "siteverification" {
+#   zone_id = data.cloudflare_zones.zones.zones.0.id
+#   name    = var.domain_name
+#   type    = "TXT"
+#   content = data.googlesiteverification_dns_token.domain.record_value
+#   ttl     = 60
+#   proxied = false
+#   comment = "Google Domain verification record"
+#   tags    = []
+
+#   lifecycle {
+#     ignore_changes = all
+#   }
+# }
 
 resource "cloudflare_record" "cname_test_learnwithpras" {
   zone_id = data.cloudflare_zones.zones.zones.0.id
