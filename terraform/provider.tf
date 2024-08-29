@@ -19,11 +19,13 @@ provider "google" {
   project = var.project_id
   region  = var.region
   zone    = var.zone
+  impersonate_service_account = "temp-sa@pras-sandbox-405410.iam.gserviceaccount.com"
+  # credentials =
   scopes  = [
     "https://www.googleapis.com/auth/siteverification",
     "https://www.googleapis.com/auth/cloud-platform",
     "https://www.googleapis.com/auth/sqlservice.login",
-    "https://www.googleapis.com/auth/siteverification.verify_only",
+    # "https://www.googleapis.com/auth/siteverification.verify_only",
     "https://www.googleapis.com/auth/userinfo.email",
     "openid"
   ]
