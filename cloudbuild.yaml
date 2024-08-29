@@ -1,13 +1,5 @@
 steps:
-  # - name: gcr.io/google.com/cloudsdktool/cloud-sdk
-  #   entrypoint: gcloud
-  #   args:
-  #     - auth
-  #     - application-default
-  #     - login
-  #     - --scopes
-  #     - https://www.googleapis.com/auth/siteverification.verify_only,https://www.googleapis.com/auth/userinfo.email,https://www.googleapis.com/auth/cloud-platform,https://www.googleapis.com/auth/sqlservice.login,openid
-  - id: tf plan
+  - id: apply terraform configuration
     name: hashicorp/terraform:1.9.5
     entrypoint: sh
     args:
@@ -31,13 +23,3 @@ steps:
 
         # Run the Taskfile command
         task terraform-apply
-# serviceAccount: "terraform-cloudbuild-sa@pras-sandbox-405410.iam.gserviceaccount.com"
-# logsBucket: "logs-static-ai"
-# options:
-#   logging: GCS_ONLY
-#     secretEnv: ['TERRAFORM_SERVICE_ACCOUNT_KEY']
-# availableSecrets:
-#   secretManager:
-#   - versionName: projects/630923649102/secrets/terraform-cloudbuild-sa-service-account/versions/latest
-#     env: 'TERRAFORM_SERVICE_ACCOUNT_KEY'
-# serviceAccount: projects/630923649102/serviceAccounts/terraform-cloudbuild-sa@pras-sandbox-405410.iam.gserviceaccount.com
