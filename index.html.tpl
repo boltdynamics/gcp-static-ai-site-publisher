@@ -15,7 +15,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            background: linear-gradient(135deg, #7a1316 0%, #fad0c4 99%, #fad0c4 100%);
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
         }
 
         @keyframes fadeIn {
