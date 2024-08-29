@@ -16,10 +16,5 @@ steps:
         npm install -g typescript
         tsc --version
 
-        # Authenticate with gcloud and set scopes
-        # echo $$TERRAFORM_SERVICE_ACCOUNT_KEY > /tmp/key.json
-        # gcloud auth activate-service-account --key-file=/tmp/key.json
-        # gcloud auth application-default login --scopes=https://www.googleapis.com/auth/siteverification.verify_only,https://www.googleapis.com/auth/userinfo.email,https://www.googleapis.com/auth/cloud-platform,https://www.googleapis.com/auth/sqlservice.login,openid
-
         # Run the Taskfile command
         task terraform-apply
