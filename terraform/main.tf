@@ -15,14 +15,14 @@ locals {
   }
 }
 
-# resource "google_project_service" "siteverification" {
-#   service = "siteverification.googleapis.com"
-# }
+resource "google_project_service" "siteverification" {
+  service = "siteverification.googleapis.com"
+}
 
-# data "googlesiteverification_dns_token" "domain" {
-#   domain     = var.domain_name
-#   depends_on = [google_project_service.siteverification]
-# }
+data "googlesiteverification_dns_token" "domain" {
+  domain     = var.domain_name
+  depends_on = [google_project_service.siteverification]
+}
 
 data "google_secret_manager_secret_version" "cloudflare-api-key" {
   project  = var.project_id
@@ -40,16 +40,16 @@ data "cloudflare_zones" "zones" {
   }
 }
 
-# resource "cloudflare_record" "siteverification" {
-#   zone_id = data.cloudflare_zones.zones.zones.0.id
-#   name    = var.domain_name
-#   type    = "TXT"
-#   content = data.googlesiteverification_dns_token.domain.record_value
-#   ttl     = 60
-#   proxied = false
-#   comment = "Google Domain verification record"
-#   tags    = []
-# }
+resource "cloudflare_record" "siteverification" {
+  zone_id = data.cloudflare_zones.zones.zones.0.id
+  name    = var.domain_name
+  type    = "TXT"
+  content = data.googlesiteverification_dns_token.domain.record_value
+  ttl     = 60
+  proxied = false
+  comment = "Google Domain verification record"
+  tags    = []
+}
 
 resource "cloudflare_record" "cname_test_learnwithpras" {
   zone_id = data.cloudflare_zones.zones.zones.0.id
@@ -150,7 +150,6 @@ resource "google_cloudbuild_trigger" "build-static-ai-website" {
   location    = var.region
   name        = "build-static-ai-website"
   description = "Build the static ai website when there are changes to the repository"
-  # service_account = "terraform-cloudbuild-sa@pras-sandbox-405410.iam.gserviceaccount.com"
   repository_event_config {
     repository = google_cloudbuildv2_repository.static-ai-repository.id
     push {
@@ -161,7 +160,6 @@ resource "google_cloudbuild_trigger" "build-static-ai-website" {
   substitutions = {
     _BUCKET_NAME = var.static_ai_website_bucket_name
   }
-  # include_build_logs = "INCLUDE_BUILD_LOGS_WITH_STATUS"
 }
 
 data "archive_file" "ask_ai_function_archive" {
