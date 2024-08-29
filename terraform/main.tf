@@ -157,7 +157,7 @@ resource "google_cloudbuild_trigger" "build-static-ai-website" {
   repository_event_config {
     repository = google_cloudbuildv2_repository.static-ai-repository.id
     push {
-      branch = "test-trigger"
+      branch = "main"
     }
   }
   filename = "cloudbuild.yaml"
