@@ -16,9 +16,15 @@ terraform {
 }
 
 provider "google" {
-  # impersonate_service_account = "terraform-cloudbuild-sa@pras-sandbox-405410.iam.gserviceaccount.com"
   project = var.project_id
   region  = var.region
   zone    = var.zone
-  scopes  = ["https://www.googleapis.com/auth/siteverification"]
+  scopes  = [
+    "https://www.googleapis.com/auth/siteverification",
+    "https://www.googleapis.com/auth/cloud-platform",
+    "https://www.googleapis.com/auth/sqlservice.login",
+    "https://www.googleapis.com/auth/siteverification.verify_only",
+    "https://www.googleapis.com/auth/userinfo.email",
+    "openid"
+  ]
 }
