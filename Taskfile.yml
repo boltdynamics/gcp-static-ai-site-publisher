@@ -59,7 +59,7 @@ tasks:
     #   - terraform-providers-lock
     cmds:
       - |
-        terraform init \
+        terraform init -upgrade \
         -backend-config="bucket=${BACKEND_BUCKET_NAME}" \
         -backend-config="prefix=${BACKEND_BUCKET_TERRAFORM_PREFIX}"
 

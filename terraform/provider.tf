@@ -1,7 +1,8 @@
 terraform {
   required_providers {
     google = {
-      version = ">= 5.40.0"
+      # version = ">= 5.40.0"
+      version = "5.34.0"
     }
     googlesiteverification = {
       source  = "hectorj/googlesiteverification"
